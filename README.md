@@ -1,4 +1,6 @@
-# Astro
+# Astro 🚀
+
+## Introducción
 
 Astro ([web](https://astro.build/)) es un framework de JavaScript (llamado JS de ahora en más) pensado para hacer páginas estáticas centradas en el contenido, como blogs o landing pages entre otras; no obstante Astro permite crear culaquier tipo de página. Las principales características de Astro son:
 
@@ -53,7 +55,7 @@ Por último nos encontramos una etiqueta `<style>` que engloba los estilos que l
 
 ![Imagen de ejemplo del párrafo anterior](./images/astro-sintax-3.png)
 
-En caso de que queramos que unos estilos sean globales debemos asignarle la directiva (ver [Directivas en Astro](#directivas-de-maquetado)) "is:global" como se ve a continuación.
+En caso de que queramos que unos estilos sean globales debemos asignarle la directiva (ver [Directivas de Maquetado](#directivas-de-maquetado)) "is:global" como se ve a continuación.
 
 ```astro
 <style is:global>
@@ -69,7 +71,7 @@ En todos los archivos `.astro` tenemos acceso a la variable Astro la cual guarda
 
 ## Integrar Frameworks a Astro
 
-Para integrar un framework con Astro en la mayoría de los casos es tan simple como ejecutar `npm astro add <framework>`. Para ver todas las integraciones que podemos hacer con este comando ejecutamos `npx astro add --help`, no obstante aquí está la lista actualizada al día 18/02/2025:
+Para integrar un framework con Astro en la mayoría de los casos es tan simple como ejecutar `npx astro add <framework>`. Para ver todas las integraciones que podemos hacer con este comando ejecutamos `npx astro add --help`, no obstante aquí está la lista actualizada al día 18/02/2025:
 
 - Frameworks UI:
     - react
@@ -172,7 +174,127 @@ Si creamos una página llamada "404.*" Astro lo interpretará como la página qu
 
 ### Rutas Dinamicas
 
-In progress...
+A la hora de crear rutas dinámicas en Astro tenemos dos opciones, una es crear TODAS las posibles rutas, lo que mantiene el enfoque estático de Astro o por otro lado hacer que Astro funcione con SSR (Server Side Rendering).
+
+En cualquiera de los dos casos para indicar que una parte de la URL es dinámica lo hacemos poniendola entre corchetes, por ejemplo, si queremos tener una ruta `mitienda.com/productos/ab104` siendo "ab104" una ID de producto deberiamos tener los siguiente dentro de la carpeta "pages" de nuestro proyecto
+
+```text
+pages
+  |-- productos
+        |--- [id].astro
+```
+
+#### Generar Todas las Rutas
+
+Para generar todas las rutas tenemos que exportar una función llamada "getStaticPath" desde nuestro archivo `pages/productos/[id].astro` la cual debe devolver un Array de objetos cuya única clave sea `params` y su valor sea un objeto con los parametros de la URL, en nuestro caso sería el siguiente:
+```js
+{
+  id: 'ab104'
+}
+```
+
+De esta forma nuestro `[id].astro` quedaría de la siguiente manera:
+
+```ts
+---
+import type { GetStaticPaths } from "astro"; // <-- si trabajamos con TS
+
+export const getStaticPaths = (async () => {
+  return [
+    {
+      params: {
+        id: 'ab104'
+      }
+    },
+    {
+      params: {
+        id: 'ab105'
+      }
+    }
+    // ...
+  ]
+}) satisfies GetStaticPaths;
+
+// Logica de que según el ID obtener los datos del producto
+const { id } = Astro.params
+// ...
+---
+```
+```astro
+<!-- Resto del Componente -->
+```
+
+Hacer esto es claramente poco práctico pero lo que podemos hacer es una llamada a una API que nos proporcione las IDs de todos los productos:
+
+```ts
+---
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const products = await fetch('/api/products').then(res => res.json())
+
+  return products.map(p => {
+    return {
+      params: {
+        id: p.productId
+      }
+    }
+  })
+}) satisfies GetStaticPaths;
+
+const { id } = Astro.params
+// ...
+---
+```
+
+Esto lo que hará es que al momento de compilar nuestra aplicación (ejecutar `npm run build`) Astro va a crear todas las posibles páginas estáticas. Usar este enfoque puede ser útil cuando sabemos exactamente cuántas páginas va a haber, por ejemplo, en una tienda que sabemos que tiene 120 productos a disposición.
+
+#### Astro con SSR
+
+Ahora supongamos que queremos trabajar con SSR, para ello tenemos que ir a nuestro archivo `astro.config.mjs` y definir la propiedad `output` con el valor `server` (valor por defecto `static`) lo que indica a Astro que no debe servir las páginas de forma estática si no dinámica
+
+```mjs
+// @ts-check
+import { defineConfig, envField } from 'astro/config';
+
+import tailwindcss from '@tailwindcss/vite';
+
+// https://astro.build/config
+export default defineConfig({
+  output: 'server'
+});
+```
+
+De esta forma no necesitamos crear un `getStaticPaths` porque se crearan bajo demanda. Siguiendo con el ejemplo anterior de `pages/productos/[id].astro` el código quedaría de la siguiente manera:
+
+```ts
+---
+import type { GetStaticPaths } from "astro"; // <-- si trabajamos con TS
+
+// Logica de que según el ID obtener los datos del producto
+const { id } = Astro.params
+// ...
+---
+```
+```astro
+<!-- Resto del Componente -->
+```
+
+El problema de hacer esto es que ahora TODAS las página de nuestra aplicación funcionan con SSR lo que complica las cosas.
+
+Si queremos hacer que un solo archivo empleé SSR mientras que el resto sigan siendo estáticos lo que podemos hacer es no modificar el `astro.config.mjs` e incluir al principio de `pages/productos/[id].astro` la siguiente linea:
+
+```ts
+export const prerender = false // <-- renderizado bajo demanda
+```
+
+Por el contrario si queremos que todo el proyecto sea SSR pero que algún archivo individual sea estático ponemos el `output` del proyecto en `server` y vamos a ese archivo que debe ser renderizado estaticamente y exportamos al principio del archivo `prerender = true` 
+
+```ts
+export const prerender = true // <-- renderizado estático
+```
+
+Es importante tener en cuenta que vamos a nececitar agregar un adaptador SSR para poder desplegar nuestra aplicación, si no lo hacemos al ejecutar `npm run build` tendremos un error
 
 ## Directivas de Maquetado
 
@@ -182,7 +304,7 @@ Las directivas de maquetado se utilizan para controlar el comportamiento de un e
 
 Todas las directivas de Astro incluyend ":" en su sintaxis
 
-### Algunas Directivas Comunes
+### Algunas Directivas Comunes ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-comunes))
 
 #### class:list
 
@@ -201,6 +323,287 @@ class:list toma un array de varios tipos de valores posibles diferentes:
 <span class="hola foo mundo buz"></span>
 ```
 
-### Directivas del Clinente
+### Directivas de Script y Style ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-script--style))
+
+#### is:global
+
+Hace que los estilos de esta estiqueta `<style>` se apliquen globalmente cunado el componente se renderiza.
+
+### Directivas del Cliente ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-del-cliente))
 
 In progress...
+
+## Content Collections ([docs](https://docs.astro.build/en/guides/content-collections/))
+
+Las colecciones de contenido son un conjunto de datos que están estructurados similar, pueden ser post de un blog, un archivo JSON con productos o cualquier dato que represente una serie de elementos con la misma forma.
+
+Astro nos otroga una API para buscar y configurar estas coleciones, las cuales deben estar detro de la carpeta `src/content`, que se importa como `astro:content`.
+
+Para definir las coleciones lo primero es crear la carpeta `content` dentro de `src`, será dentro de esta donde creemos y configuremos nuestras colecciones.
+
+Supongamos que queremos tener una colección de libros a la venta, la cual llamaremos "books", que sean archivos .md que sigan la siguiente estructura:
+
+```md
+---
+title: string
+author: string
+img: url
+readtime: number
+description: string
+buy:
+  spain: url
+  usa: url
+---
+
+Amazon Description... (string)
+```
+
+Para ello creamos una carpeta dentro de `content` con el nombre de la coleción, y dentro de ella pondremos todos los MarkDown de los libros
+
+A continuación debemos definir las coleciones, para ello creamos un archivo `config.ts` dentro de la carpeta `content` que es donde ocurre la magia
+
+```text
+src
+ |-- content
+        |--- books
+        |      |--- book1.md
+        |      |--- book2.md
+        |      |--- book3.md
+        |--- config.ts
+```
+
+En nuestro archivo de configuración debemos hacer tres cosas al definir una coleción:
+
+1. Definir el `loader` de la coleción, para definir de dónde extraer los datos
+2. Definir el esquema de la coleción ayudandonos con Zod, para el tipado de TS (opcional)
+3. Exportar la constante `collections` que debe ser un objeto con las coleciones
+
+Este proceso se ve a continuación:
+
+```ts
+import { defineCollection, z } from "astro:content";
+// z --> Zod Schema
+
+import { glob } from "astro/loaders";
+// glob --> loader para directorios de archivos de cualquier lugar del sistema de archivos
+/* Sintaxis
+glob({
+  pattern: string | string[],
+  base?: string | URL (default: "."),
+  generateId?: (options: GenerateIdOptions) => string
+})
+*/
+
+// - pattern: matron que deben cumplir los archivos generalmente usado para definir el tipo de archivo. Ej: "**/*.md" (todos los .md), "**./*.(md|mdx)" (todos los .md y .mdx)
+// base: directorio donde base donde buscar, por defecto busca desde la raiz del proyecto, en general su valor será al parecido a ".src/content/collectionName"
+// generateId: callback para generar un ID unico para esa entrada de la coleción, por defecto es el nombre del archivo sin la extensión
+
+const books = defineCollection({
+  // todos los .md (pattern) dentro de "./src/content/books" (base)
+  loader: glob({ pattern: '**/*.md', base: './src/content/books' }),
+  schema: z.object({
+    title: z.string(),
+    author: z.string(),
+    img: z.string(),
+    readtime: z.number(),
+    description: z.string(),
+    buy: z.string().url(),
+  })
+})
+
+export const collections = { books }
+```
+
+`glob` y `file` son los dos buildin loaders más importantes, la principal diferencia entre ellos es que `glob` es para directorios de archivos MD, MDX, JSON o YAML y `file` para archivos individuales JSON o YAML
+
+Por último para usar la coleción nos apoyamos de la función `getCollection` en el archivo que la necesitemos
+
+```js
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const books = await getCollection('books')
+---
+```
+```jsx
+<Layout title='Astro Books'>
+  {
+    books.map(b => {
+      const { id, data } = b
+      const { title, author, img, readtime, description, buy } = data
+
+      return (
+        <article>
+          <a href={`libro/${id}`}>
+            <img src={`/img/${img}`} alt={title} />
+          </a>
+          <div>
+            <h2>
+              {title}
+            </h2>
+
+            <p>{description}</p>
+            <span>Lectura en {readtime} minutos</span>
+          </div>
+        </article>
+      )
+    })
+  }
+</Layout>
+```
+
+En el caso de que queramos acceder al contenido escrito en el MD la forma más fácil de hacerlo es importando la función render de `astro:content` y usarla de la siguiente manera:
+
+```js
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export const getStaticPaths = (async () => {
+  const books = await getCollection('books')
+  
+  return books.map(b => ({
+    params: {id: b.id},
+    props: {book: b}
+  }));
+}) satisfies GetStaticPaths;
+
+const { book } = Astro.props
+const { data } = book
+const { title, author, img, readtime, description, buy } = data
+
+const { Content } = await render(book)
+```
+```astro
+<Layout>
+  <main>
+    <!-- Esto muestra el contenido del MD -->
+   <Content />
+  </main>
+</Layout>
+```
+
+## View Transitions
+
+Las View Transitions son una API nativa de JS que permite hacer transiciones entre navegaciones, por ejemplo, podriamos tener una galeria de fotos en nuestra raiz (url "/") y que al hacer click en una de ellas no solo nos dirija a ver la foto en grande con algo de información, también que la imagen se desplace y haga más grande a modo de transición.
+
+Esto se puede hacer si necesidad de Astro con HTML y CSS siguiendo la [documentación](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API), no obstante astro nos lo facilita enormemente.
+
+En primer lugar debemos envolver la parte de nuestra aplicación a la que queramos aplicar view transitions con el componente `ClientRouter` de `astro:transitions`, pero por lo general nos bastará con ponerlo en el elemento `head` de nuestros layouts
+
+```js
+---
+import { ClientRouter } from 'astro:transitions'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+```
+```jsx
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+    <ClientRouter />
+	</head>
+	<body>
+    <slot />
+	</body>
+</html>
+```
+
+A continuación para decir que un elemento se tiene que transformar en otro entre navegaciones simplemente tenemos que asignarle la directiva `transition:name` cuyo valor debe ser un identificador único, esto para que Astro pueda relacionar los elementos de forma correcta
+```ts
+---
+// path: "src/pages/index.astro"
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const images = await getCollection('images')
+---
+```
+```jsx
+<Layout>
+  {
+    images.map(image => {
+      const { id, data } = image
+      const { url, desc, date } = data
+      return (
+        <a href={`/image/${id}`}>
+          <img src={url} alt={`image ${id}`} transition:name={`img-${id}`} />
+          <span>{date}</span>
+          <p>{desc}</p>
+        </a>
+      )
+    })
+  }
+</Layout>
+```
+
+A continuación nos dirigimos a `src/pages/image/[id].astro`. Para hacer que Astro pueda relacionar dos elementos debemos asignarle al otro el mismo valor de `transition:name`
+
+```ts
+---
+// path: "src/pages/image/[id].astro"
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Layout from '../layouts/Layout.astro';
+
+export const getStaticPaths = (async () => {
+  const images = await getCollection('images')
+  
+  return images.map(image => ({
+    params: { id: image.id },
+    props: { image }
+  }));
+}) satisfies GetStaticPaths;
+
+const { image } = Astro.props
+const { data, id } = image
+const { url, desc, date } = data
+---
+```
+```jsx
+<Layout>
+  <main>
+    <!-- Asignamos el mismo transition:name -->
+    <img src={url} alt={id} transition:name={`img-${id}`} />
+    <span>{date}<span>
+    <p>{desc}<p>
+  </main>
+</Layout>
+```
+
+## Server Islands
+
+Una isla de servidor hace referencia a que toda la página es estática a excepción de un componente especifico, el cual se renderiza desde el servidor (comportandose similar a un React Server Component).
+
+Para crear una isla de servidor el primer paso es hacer que nuestra aplicación sea renderizada desde el servidor modificando el `output` de la configuración de Astro a `server` después debemos indicar en cada página que deba ser estática que se prerenderice al empaquetar la aplicación exportando la constante `prerender` como `true` (esto es igaul a lo que se vió en [Astro con SSR](#astro-con-ssr))
+
+A continuación debemos darle la directiva `server:defer` al componente que deseamos que sea dinámico como se ve a continuación:
+
+```jsx
+<Layout title={title}>
+  <HotelScore server:defer />
+</Layout>
+```
+
+En caso de que queramos que algo se muestre algo en el frontend mientras el componente se renderiza en el servidor podemos pasarselo como hijo en el slot `fallback`:
+
+```jsx
+<Layout title={title}>
+  <HotelScore server:defer>
+    <p slot="fallback">
+      Cargando calificación...
+    </p>
+  <HotelScore>
+</Layout>
+```
