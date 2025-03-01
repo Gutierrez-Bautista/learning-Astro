@@ -304,6 +304,8 @@ Las directivas de maquetado se utilizan para controlar el comportamiento de un e
 
 Todas las directivas de Astro incluyend ":" en su sintaxis
 
+A continuación veremos algunas directivas que son especialmente interesantes y utiles, además de clasificarlas de la misma forma que se hace en la documentación de Astro
+
 ### Algunas Directivas Comunes ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-comunes))
 
 #### class:list
@@ -607,3 +609,5 @@ En caso de que queramos que algo se muestre algo en el frontend mientras el comp
   <HotelScore>
 </Layout>
 ```
+
+Nuevamente, necesitaremos un adaptador SSR para poder desplegar nuestra aplicación.
