@@ -16,7 +16,7 @@ Astro ([web](https://astro.build/)) es un framework de JavaScript (llamado JS de
 
 ## Crear Proyecto de Astro
 
-En la página de Astro nada más entrar nos proporciona el comando para crear un proyecto `npm create astro@latest` el cual lo hace con la última versión de Astro, tras esto nos hará una serie de preguntas sobre el proyecto:
+En la página de Astro nada más entrar nos proporciona el comando para crear un proyecto `npm create astro@latest` o `pnpm/yarn create astro --template starlight` el cual lo hace con la última versión de Astro, tras esto nos hará una serie de preguntas sobre el proyecto:
 
 1. Nomre del proyecto
 2. Incluir archivos por defecto (recomendable), blog template, o vacío.
@@ -71,7 +71,7 @@ En todos los archivos `.astro` tenemos acceso a la variable Astro la cual guarda
 
 ## Integrar Frameworks a Astro
 
-Para integrar un framework con Astro en la mayoría de los casos es tan simple como ejecutar `npx astro add <framework>`. Para ver todas las integraciones que podemos hacer con este comando ejecutamos `npx astro add --help`, no obstante aquí está la lista actualizada al día 18/02/2025:
+Para integrar un framework con Astro en la mayoría de los casos es tan simple como ejecutar `npx astro add <framework>` o `pnpm/yarn astro add <framework>`. Para ver todas las integraciones que podemos hacer con este comando ejecutamos `npx astro add --help`, no obstante aquí está la lista actualizada al día 18/02/2025:
 
 - Frameworks UI:
     - react
@@ -611,3 +611,51 @@ En caso de que queramos que algo se muestre algo en el frontend mientras el comp
 ```
 
 Nuevamente, necesitaremos un adaptador SSR para poder desplegar nuestra aplicación.
+
+## Documentación con Starlight
+
+Gracias a que Astro está pensado para sitios estáticos es muy bueno para crear documentaciones.
+
+Si bien es cierto que podriamos hacerlo todo a mano lo mejor es usar una plantilla como [starlight](https://starlight.astro.build/), veamos un ejemplo con esta plantilla creada por el equipo de Astro.
+
+### Instalación
+
+Crear un proyecto de Astro con Starlight es muy sencillo, tenemos que crear el proyecto de Astro agregando la bandera `-- --template starlight` en npm y `--template starlight` en pnpm y yarn
+
+```sh
+npm create astro@latest -- --template starlight
+```
+
+o
+
+```sh
+pnpm/yarn create astro --template starlight
+```
+
+### Configuración de Starlight
+
+> [!WARNING]
+> IN PROGESS
+
+### Entradas de la Documentación
+
+Starlight se encarga de crear una content collection llamada "docs" en la que debemos ir agregando cada una de las entradas, las cuales deben estar en formato `.md` o `.mdx`. Nosotros podemos especificar una multitud de campos en el `frontmatter` de cada uno de ellos pero los más importantes son:
+
+- title (obligatorio): Es el texto que se mostrará como título de la entrada, en la pestaña del navegador, y como metadata de la página.
+- description: utilizada para como metadata de la página. Aunque no es obligatoria es muy recomendable ponerla siempre.
+- slug: Cambia el slug (url) de la página
+- template: `doc` o `splash` define el Layout que usará esa página, por defecto es `doc`, `splash` no cuenta con la barra lateral ni tabla de contenidos, está diseñada para landingpages o cosas por el estilo
+- hero: añade un componente `Hero` en la parte superior de la pantalla, funciona especialmente bien con `template: splash` (admite varios capos, ver [frontmatter hero](https://starlight.astro.build/reference/frontmatter/#hero))
+- prev: `bool | string | { link?: string, label?: string }`, por defecto muestra un botón para ir a la entrada anterior, `false` hace que este botón no se muestre, un `string` cambia su texto y un objeto modifica tanto el texto como el enlace a donde redirige.
+- next: lo mismo que `prev` pero para la entrada siguiente.
+- sidebar: controla cómo la entrada se muestra en la [barra lateral](#barra-lateral-o-sidebar) cuando esta es autogenerada ([ver docs](https://starlight.astro.build/reference/frontmatter/#sidebar)).
+
+
+### Barra Lateral o Sidebar [docs](https://starlight.astro.build/guides/sidebar)
+
+La barra lateral es la que permite navegar por la documentación, por defecto esta sigue la estructura de carpetas del proyecto.
+
+Toda configuración que queramos hacer sobre la barra lateral debe ir dentro de la configuración de starlight en el archivo `astro.config.mj`
+
+> [!WARNING]
+> IN PROGESS
