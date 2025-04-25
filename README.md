@@ -632,7 +632,39 @@ o
 pnpm/yarn create astro --template starlight
 ```
 
-### Configuración de Starlight
+### Configuración de Starlight ([docs](https://starlight.astro.build/reference/configuration/))
+
+Dentro del archivo de configuración de astro `astro.config.mjs` encotramos la configuración de la integración de starlight con Astro
+
+```mjs
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+
+export default defineConfig({
+	integrations: [
+		starlight({
+			// ...
+		}),
+	],
+});
+```
+
+A starkight podemos pasarle una serie de propiedades, entre las que se puede destacar las siguientes:
+
+- title (obligatoria): `string | Object`, el título de la página web también usado para los metadatos. En caso de que sea un objeto cada clave debe corresponder a un idioma según etiquetas BCP-47 y como valor el título en ese idioma.
+- description: texto usado como descripción en los metadatos de la página.
+- logo: imagen para mostrar en la barra de navegación junto al título de la página o en su lugar, se le puede pasar un objeto siguiendo el siguiente esquema:
+```ts
+type LogoConfig = { alt?: string; replacesTitle?: boolean } & (
+  | { src: string }
+  | { light: string; dark: string }
+)
+```
+- TableOfContent: `false | { minHeadingLevel?: number; maxHeadingLevel?: number; }`, Configura la tabla de contenidos que se muestra a la derecha de cada página. Por defecto sólo los encabezados <h2> y <h3> se incluyen.
+- sidebar: Configura la barra lateral de navegación ver [Barra Lateral o Sidebar](#barra-lateral-o-sidebar-docs).
+- social: Cuentas de redes sociales para este sitio. Se mostrarán como iconos en el encabezado de sitio. `Array<{ label: string; icon: StarlightIcon; href: string }>` (ver [iconos de starlight](https://starlight.astro.build/es/reference/icons/))
+- favicon: path al favicon por defecto alojado en el directorio `public/`.
+- creadits: si es `true` pone un enlace de "echo con starlight" en el footer.
 
 > [!WARNING]
 > IN PROGESS
@@ -651,7 +683,7 @@ Starlight se encarga de crear una content collection llamada "docs" en la que de
 - sidebar: controla cómo la entrada se muestra en la [barra lateral](#barra-lateral-o-sidebar) cuando esta es autogenerada ([ver docs](https://starlight.astro.build/reference/frontmatter/#sidebar)).
 
 
-### Barra Lateral o Sidebar [docs](https://starlight.astro.build/guides/sidebar)
+### Barra Lateral o Sidebar ([docs](https://starlight.astro.build/guides/sidebar))
 
 La barra lateral es la que permite navegar por la documentación, por defecto esta sigue la estructura de carpetas del proyecto.
 

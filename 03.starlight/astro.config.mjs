@@ -7,7 +7,10 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Docs Test',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' },
+        { icon: 'instagram', label: 'Instagram', href: 'https://instagram.com' }
+      ],
 			sidebar: [
         {
           label: 'Quick Start',
@@ -25,6 +28,7 @@ export default defineConfig({
 					autogenerate: { directory: 'reference' },
 				},
 			],
+      credits: true
 		}),
 	],
 });

@@ -2,18 +2,29 @@
 title: Quick Start
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
 Starlight es una plantilla creada por el equipo de Astro para crear documentaciones visualmente atractivas de una forma simple y rápida. Esta incorpora una barra de navegación basada en el sistema de archivos de la colección "docs", una tabla de contenidos basada en los títulos de cada entrada de la documentación, varios componentes para facilitar la creación de la documentación, entre muchas otras cosas.
 
 ## Instalación
 
 Crear un proyecto de Astro con Starlight es muy sencillo, tenemos que crear el proyecto de Astro agregando la bandera `-- --template starlight` en npm y `--template starlight` en pnpm y yarn
 
-```sh
-npm create astro@latest -- --template starlight
-```
 
-o
-
-```sh
-pnpm/yarn create astro --template starlight
-```
+<Tabs>
+  <TabItem label="npm">
+    ```sh
+    npm create astro@latest -- --template starlight
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```sh
+    pnpm create astro --template starlight
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```sh
+    yarn create astro --template starlight
+    ```
+  </TabItem>
+</Tabs>
