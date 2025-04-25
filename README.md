@@ -660,14 +660,11 @@ type LogoConfig = { alt?: string; replacesTitle?: boolean } & (
   | { light: string; dark: string }
 )
 ```
-- TableOfContent: `false | { minHeadingLevel?: number; maxHeadingLevel?: number; }`, Configura la tabla de contenidos que se muestra a la derecha de cada página. Por defecto sólo los encabezados <\h2> y <\h3> se incluyen.
+- TableOfContent: `false | { minHeadingLevel?: number; maxHeadingLevel?: number; }`, Configura la tabla de contenidos que se muestra a la derecha de cada página. Por defecto sólo los encabezados h2 y h3 se incluyen.
 - sidebar: Configura la barra lateral de navegación ver [Barra Lateral o Sidebar](#barra-lateral-o-sidebar-docs).
 - social: Cuentas de redes sociales para este sitio. Se mostrarán como iconos en el encabezado de sitio. `Array<{ label: string; icon: StarlightIcon; href: string }>` (ver [iconos de starlight](https://starlight.astro.build/es/reference/icons/))
 - favicon: path al favicon por defecto alojado en el directorio `public/`.
 - creadits: si es `true` pone un enlace de "echo con starlight" en el footer.
-
-> [!WARNING]
-> IN PROGESS
 
 ### Entradas de la Documentación
 
@@ -687,7 +684,137 @@ Starlight se encarga de crear una content collection llamada "docs" en la que de
 
 La barra lateral es la que permite navegar por la documentación, por defecto esta sigue la estructura de carpetas del proyecto.
 
-Toda configuración que queramos hacer sobre la barra lateral debe ir dentro de la configuración de starlight en el archivo `astro.config.mj`
+Toda configuración que queramos hacer sobre la barra lateral debe ir dentro de la configuración de starlight en el archivo `astro.config.mj`.
 
-> [!WARNING]
-> IN PROGESS
+#### Links Internos ([doc](https://starlight.astro.build/guides/sidebar/#internal-links))
+
+Esto hace referencia a cuando queremos que algo que se encuentra en una subcarpeta de la documentación aparezca en primer nivel de la barra de navegación.
+
+```txt
+src/
+  |-- content/
+          |-- docs/
+                |-- constellations/
+                          |--andromeda.md
+                          |--orion.md
+```
+
+Por defecto la barra de navegación va a mostrar algo parecido a:
+
+```txt
+Constellations
+      |--> Andromeda
+      |--> Orion
+```
+
+Si nosotro agregamos la siguiente configuración a starlight lo que vamos a lograr es que tanto "Andromeda" y "Orion" aparezcan en el primer nivel:
+
+```mjs
+starlight({
+  sidebar: [
+    { slug: 'constellations/andromeda' },
+    { slug: 'constellations/orion' },
+  ],
+});
+```
+
+Esto mismo podríamos escribirlo de la siguiente forma
+```mjs
+starlight({
+  sidebar: ['constellations/andromeda', 'constellations/orion'],
+});
+```
+
+#### Otros Links ([doc](https://starlight.astro.build/guides/sidebar/#other-links))
+
+Si queremos agregar enlaces a página de la carpeta `/pages` o a sitios externos podemos hacer lo siguiente:
+
+```mjs
+starlight({
+  sidebar: [
+    // Link a una página en el directorio "pages".
+    { label: 'Tienda', link: '/shop/' },
+    // An external link to the NASA website.
+    { label: 'LoFi Tokyo', link: 'https://www.youtube.com/channel/UCkK2B6D3imy6EnpqfrYm-5A' }
+  ]
+})
+```
+
+#### Grupos
+
+Para hacer una estructura de árbol agrupando entradas que se encuentran en el mismo directorio podemos apoyarnos en la propiedad `items`
+
+```mjs
+starlight({
+  sidebar: [
+    {
+      label: 'Constelaciones',
+      items: [
+        'constelaciones/carina',
+        'constelaciones/centauro',
+        {
+          label: 'Estacionales',
+          items: [
+            'constelaciones/andromeda',
+            'constelaciones/orion',
+            'constelaciones/osa-menor'
+          ]
+        }
+      ]
+    }
+  ]
+})
+```
+
+Esto da como resultado algo como lo siguiente:
+
+```txt
+Constelaciones
+      |---> Carina
+      |---> Centauro
+      |-------- Estacionales
+                      |-----> Andromeda
+                      |-----> Orion
+                      |-----> Osa Menor
+```
+
+En caso de querer autogenerar un grupo podemos usar la propiedad `autogenerate` y pasarle el directorio que debe usar para autogenerarlo:
+
+```mjs
+starlight({
+  sidebar: [
+    {
+      label: 'Constelaciones',
+      autogenerate: { directory: 'Constelaciones' }
+    }
+  ]
+})
+```
+
+#### Badges
+
+Tanto los Enlaces como los grupos pueden incluir una propiedad `badge` para decorar el item pasandole un string o un objeto con `text`, `variant` y/o `class`
+
+```ts
+type SidebarBadgeI = string | {
+  text: string
+  variant?: 'note' | 'tip' | 'danger' | 'caution' | 'success'
+  class?: string
+}
+```
+
+```mjs
+starlight({
+  sidebar: [
+    {
+      label: 'Estrellas',
+      items: [
+        {
+          slug: 'estrellas/sirius',
+          badge: { text: 'Stub', variant: 'caution' },
+        },
+      ],
+    },
+  ],
+});
+```
