@@ -1,44 +1,44 @@
-# 1. Astro :rocket
-- [1. Astro :rocket](#1-astro-rocket)
-  - [1.1. Introducción](#11-introducción)
-  - [1.2. Crear Proyecto de Astro](#12-crear-proyecto-de-astro)
-    - [1.2.1. Estructura del Proyecto](#121-estructura-del-proyecto)
-  - [1.3. Sintaxis de Astro](#13-sintaxis-de-astro)
-  - [1.4. Variable Global Astro](#14-variable-global-astro)
-  - [1.5. Integrar Frameworks a Astro](#15-integrar-frameworks-a-astro)
-  - [1.6. Layouts y Slot](#16-layouts-y-slot)
-  - [1.7. Enrutamiento en Astro](#17-enrutamiento-en-astro)
-    - [1.7.1. Error 404](#171-error-404)
-    - [1.7.2. Rutas Dinamicas](#172-rutas-dinamicas)
-      - [1.7.2.1. Generar Todas las Rutas](#1721-generar-todas-las-rutas)
-      - [1.7.2.2. Astro con SSR](#1722-astro-con-ssr)
-  - [1.8. Directivas de Maquetado](#18-directivas-de-maquetado)
-    - [1.8.1. Algunas Directivas Comunes (docs)](#181-algunas-directivas-comunes-docs)
-      - [1.8.1.1. class:list](#1811-classlist)
-    - [1.8.2. Directivas de Script y Style (docs)](#182-directivas-de-script-y-style-docs)
-      - [1.8.2.1. is:global](#1821-isglobal)
-    - [1.8.3. Directivas del Cliente (docs)](#183-directivas-del-cliente-docs)
-  - [1.9. Content Collections (docs)](#19-content-collections-docs)
-  - [1.10. View Transitions](#110-view-transitions)
-  - [1.11. Server Islands](#111-server-islands)
-- [2. Documentación con Starlight :star](#2-documentación-con-starlight-star)
-  - [2.1. Instalación](#21-instalación)
-  - [2.2. Configuración de Starlight (docs)](#22-configuración-de-starlight-docs)
-  - [2.3. Entradas de la Documentación](#23-entradas-de-la-documentación)
-  - [2.4. Barra Lateral o Sidebar (docs)](#24-barra-lateral-o-sidebar-docs)
-    - [2.4.1. Links Internos (doc)](#241-links-internos-doc)
-    - [2.4.2. Otros Links (doc)](#242-otros-links-doc)
-    - [2.4.3. Grupos](#243-grupos)
-    - [2.4.4. Badges](#244-badges)
-  - [2.5. Componentes (docs)](#25-componentes-docs)
-    - [2.5.1. Card](#251-card)
-    - [2.5.2. CardGrid](#252-cardgrid)
-    - [2.5.3. Aside](#253-aside)
-    - [2.5.4. LinkButton](#254-linkbutton)
-    - [2.5.5. Tabs y TabItem](#255-tabs-y-tabitem)
-    - [2.5.6. FileTree](#256-filetree)
+# Astro 🚀
+- [Astro 🚀](#astro-)
+  - [Introducción](#introducción)
+  - [Crear Proyecto de Astro](#crear-proyecto-de-astro)
+    - [Estructura del Proyecto](#estructura-del-proyecto)
+  - [Sintaxis de Astro](#sintaxis-de-astro)
+  - [Variable Global Astro](#variable-global-astro)
+  - [Integrar Frameworks a Astro](#integrar-frameworks-a-astro)
+  - [Layouts y Slot](#layouts-y-slot)
+  - [Enrutamiento en Astro](#enrutamiento-en-astro)
+    - [Error 404](#error-404)
+    - [Rutas Dinamicas](#rutas-dinamicas)
+      - [Generar Todas las Rutas](#generar-todas-las-rutas)
+      - [Astro con SSR](#astro-con-ssr)
+  - [Directivas de Maquetado](#directivas-de-maquetado)
+    - [Algunas Directivas Comunes (docs)](#algunas-directivas-comunes-docs)
+      - [class:list](#classlist)
+    - [Directivas de Script y Style (docs)](#directivas-de-script-y-style-docs)
+      - [is:global](#isglobal)
+    - [Directivas del Cliente (docs)](#directivas-del-cliente-docs)
+  - [Content Collections (docs)](#content-collections-docs)
+  - [View Transitions](#view-transitions)
+  - [Server Islands](#server-islands)
+- [Documentación con Starlight](#documentación-con-starlight)
+  - [Instalación](#instalación)
+  - [Configuración de Starlight (docs)](#configuración-de-starlight-docs)
+  - [Entradas de la Documentación](#entradas-de-la-documentación)
+  - [Barra Lateral o Sidebar (docs)](#barra-lateral-o-sidebar-docs)
+    - [Links Internos (doc)](#links-internos-doc)
+    - [Otros Links (doc)](#otros-links-doc)
+    - [Grupos](#grupos)
+    - [Badges](#badges)
+  - [Componentes (docs)](#componentes-docs)
+    - [Card](#card)
+    - [CardGrid](#cardgrid)
+    - [Aside](#aside)
+    - [LinkButton](#linkbutton)
+    - [Tabs y TabItem](#tabs-y-tabitem)
+    - [FileTree](#filetree)
 
-## 1.1. Introducción
+## Introducción
 
 Astro ([web](https://astro.build/)) es un framework de JavaScript (llamado JS de ahora en más) pensado para hacer páginas estáticas centradas en el contenido, como blogs o landing pages entre otras; no obstante Astro permite crear culaquier tipo de página. Las principales características de Astro son:
 
@@ -52,7 +52,7 @@ Astro ([web](https://astro.build/)) es un framework de JavaScript (llamado JS de
 
 5. Plantillas: Astro posee muchas plantillas creadas por la comunidad que podemos utilizar como queramos, desde blogs, documentación, landing pages, entre otras.
 
-## 1.2. Crear Proyecto de Astro
+## Crear Proyecto de Astro
 
 En la página de Astro nada más entrar nos proporciona el comando para crear un proyecto `npm create astro@latest` o `pnpm/yarn create astro --template starlight` el cual lo hace con la última versión de Astro, tras esto nos hará una serie de preguntas sobre el proyecto:
 
@@ -65,7 +65,7 @@ En la página de Astro nada más entrar nos proporciona el comando para crear un
 
 En VS Code tenemos que instalar la [extensión de Astro](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode) para que nos resalte correctamente la sintaxis de los archivos `.astro`
 
-### 1.2.1. Estructura del Proyecto
+### Estructura del Proyecto
 
 El proyecto creado con Astro nos proporciona los siguientes archivos por defecto:
 
@@ -77,7 +77,7 @@ El proyecto creado con Astro nos proporciona los siguientes archivos por defecto
 - **src/layouts/**: los layouts son componentes de Astro que definen la estructura UI compartida por una o más páginas
 - **src/pages/**: son las rutas de nuestra página, los tipos de archivos soportados son ".astro", ".md", ".mdx" (con la integración de MDX instalada), ".html", ".js/.ts" (como endpoints)
 
-## 1.3. Sintaxis de Astro
+## Sintaxis de Astro
 
 Para seguir la siguiente explicación recomiendo ver el archivo por defecto `*/src/components/Welcome.astro` creado por `npm create astro@latest`
 
@@ -103,11 +103,11 @@ En caso de que queramos que unos estilos sean globales debemos asignarle la dire
 
 Es de aclarar que a diferencia de React, Astro no requiere que exportemos nada, el archivo en sí es el componente.
 
-## 1.4. Variable Global Astro
+## Variable Global Astro
 
 En todos los archivos `.astro` tenemos acceso a la variable Astro la cual guarda las propiedades que se le pasan al componente de Astro, cookies, respuestas, entre otas cosas.
 
-## 1.5. Integrar Frameworks a Astro
+## Integrar Frameworks a Astro
 
 Para integrar un framework con Astro en la mayoría de los casos es tan simple como ejecutar `npx astro add <framework>` o `pnpm/yarn astro add <framework>`. Para ver todas las integraciones que podemos hacer con este comando ejecutamos `npx astro add --help`, no obstante aquí está la lista actualizada al día 18/02/2025:
 
@@ -137,7 +137,7 @@ Para integrar un framework con Astro en la mayoría de los casos es tan simple c
 
 Que un framework no se encuentre en esta lista no implica que no se pueda usar junto con Astro, simlplementa hay que buscar una integración hecha por la comunidad y hacerla manualmente.
 
-## 1.6. Layouts y Slot
+## Layouts y Slot
 
 Los layouts son componentes que están pensados para envolver toda la página, son los que tienen la etiqueta "html", "body", "head", todas las etiquetas "meta", etc, si vemos el layout por defecto de Astro en `*/src/layouts/Layout.astro` veremos que es justamente esto:
 
@@ -202,15 +202,15 @@ import ProductsIcon from "./icons/Products.astro"
 
 En este caso ambos iconos se mostraran antes del texto, porque es texto se asigna al slot por defecto mietras que el slot de ambos iconos se encuentra antes que ese
 
-## 1.7. Enrutamiento en Astro
+## Enrutamiento en Astro
 
 Al igual que otros frameworks como NextJS Astro usa el sistema de archivos para definir las rutas, en este caso usa el directorio `*/src/pages/`, por ejemplo, si tenemos un archivo `index.astro` en ese directorio será ese el que se cargue namas abrir la página ("mipagina.com/"), por otro lado si tenemos un `about.astro` este archivo se servirá al acceder a "mipagina.com/about"
 
-### 1.7.1. Error 404
+### Error 404
 
 Si creamos una página llamada "404.*" Astro lo interpretará como la página que debe mostrar al no encontrar otra.
 
-### 1.7.2. Rutas Dinamicas
+### Rutas Dinamicas
 
 A la hora de crear rutas dinámicas en Astro tenemos dos opciones, una es crear TODAS las posibles rutas, lo que mantiene el enfoque estático de Astro o por otro lado hacer que Astro funcione con SSR (Server Side Rendering).
 
@@ -222,7 +222,7 @@ pages
         |--- [id].astro
 ```
 
-#### 1.7.2.1. Generar Todas las Rutas
+#### Generar Todas las Rutas
 
 Para generar todas las rutas tenemos que exportar una función llamada "getStaticPath" desde nuestro archivo `pages/productos/[id].astro` la cual debe devolver un Array de objetos cuya única clave sea `params` y su valor sea un objeto con los parametros de la URL, en nuestro caso sería el siguiente:
 ```js
@@ -287,7 +287,7 @@ const { id } = Astro.params
 
 Esto lo que hará es que al momento de compilar nuestra aplicación (ejecutar `npm run build`) Astro va a crear todas las posibles páginas estáticas. Usar este enfoque puede ser útil cuando sabemos exactamente cuántas páginas va a haber, por ejemplo, en una tienda que sabemos que tiene 120 productos a disposición.
 
-#### 1.7.2.2. Astro con SSR
+#### Astro con SSR
 
 Ahora supongamos que queremos trabajar con SSR, para ello tenemos que ir a nuestro archivo `astro.config.mjs` y definir la propiedad `output` con el valor `server` (valor por defecto `static`) lo que indica a Astro que no debe servir las páginas de forma estática si no dinámica
 
@@ -334,7 +334,7 @@ export const prerender = true // <-- renderizado estático
 
 Es importante tener en cuenta que vamos a nececitar agregar un adaptador SSR para poder desplegar nuestra aplicación, si no lo hacemos al ejecutar `npm run build` tendremos un error
 
-## 1.8. Directivas de Maquetado
+## Directivas de Maquetado
 
 Las directivas de maquetado son atributos especiales de HTML disponibles dentro de los componentes de Astro.
 
@@ -344,9 +344,9 @@ Todas las directivas de Astro incluyend ":" en su sintaxis
 
 A continuación veremos algunas directivas que son especialmente interesantes y utiles, además de clasificarlas de la misma forma que se hace en la documentación de Astro
 
-### 1.8.1. Algunas Directivas Comunes ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-comunes))
+### Algunas Directivas Comunes ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-comunes))
 
-#### 1.8.1.1. class:list
+#### class:list
 
 Toma un array de clases y los convierte en un string. impulsado por la biblioteca auxiliar [clsx](https://github.com/lukeed/clsx)
 
@@ -363,17 +363,17 @@ class:list toma un array de varios tipos de valores posibles diferentes:
 <span class="hola foo mundo buz"></span>
 ```
 
-### 1.8.2. Directivas de Script y Style ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-script--style))
+### Directivas de Script y Style ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-script--style))
 
-#### 1.8.2.1. is:global
+#### is:global
 
 Hace que los estilos de esta estiqueta `<style>` se apliquen globalmente cunado el componente se renderiza.
 
-### 1.8.3. Directivas del Cliente ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-del-cliente))
+### Directivas del Cliente ([docs](https://docs.astro.build/es/reference/directives-reference/#directivas-del-cliente))
 
 In progress...
 
-## 1.9. Content Collections ([docs](https://docs.astro.build/en/guides/content-collections/))
+## Content Collections ([docs](https://docs.astro.build/en/guides/content-collections/))
 
 Las colecciones de contenido son un conjunto de datos que están estructurados similar, pueden ser post de un blog, un archivo JSON con productos o cualquier dato que represente una serie de elementos con la misma forma.
 
@@ -524,7 +524,7 @@ const { Content } = await render(book)
 </Layout>
 ```
 
-## 1.10. View Transitions
+## View Transitions
 
 Las View Transitions son una API nativa de JS que permite hacer transiciones entre navegaciones, por ejemplo, podriamos tener una galeria de fotos en nuestra raiz (url "/") y que al hacer click en una de ellas no solo nos dirija a ver la foto en grande con algo de información, también que la imagen se desplace y haga más grande a modo de transición.
 
@@ -622,7 +622,7 @@ const { url, desc, date } = data
 </Layout>
 ```
 
-## 1.11. Server Islands
+## Server Islands
 
 Una isla de servidor hace referencia a que toda la página es estática a excepción de un componente especifico, el cual se renderiza desde el servidor (comportandose similar a un React Server Component).
 
@@ -650,13 +650,13 @@ En caso de que queramos que algo se muestre algo en el frontend mientras el comp
 
 Nuevamente, necesitaremos un adaptador SSR para poder desplegar nuestra aplicación.
 
-# 2. Documentación con Starlight :star
+# Documentación con Starlight
 
 Gracias a que Astro está pensado para sitios estáticos es muy bueno para crear documentaciones.
 
 Si bien es cierto que podriamos hacerlo todo a mano lo mejor es usar una plantilla como [starlight](https://starlight.astro.build/), veamos un ejemplo con esta plantilla creada por el equipo de Astro.
 
-## 2.1. Instalación
+## Instalación
 
 Crear un proyecto de Astro con Starlight es muy sencillo, tenemos que crear el proyecto de Astro agregando la bandera `-- --template starlight` en npm y `--template starlight` en pnpm y yarn
 
@@ -670,7 +670,7 @@ o
 pnpm/yarn create astro --template starlight
 ```
 
-## 2.2. Configuración de Starlight ([docs](https://starlight.astro.build/reference/configuration/))
+## Configuración de Starlight ([docs](https://starlight.astro.build/reference/configuration/))
 
 Dentro del archivo de configuración de astro `astro.config.mjs` encotramos la configuración de la integración de starlight con Astro
 
@@ -704,7 +704,7 @@ type LogoConfig = { alt?: string; replacesTitle?: boolean } & (
 - favicon: path al favicon por defecto alojado en el directorio `public/`.
 - creadits: si es `true` pone un enlace de "echo con starlight" en el footer.
 
-## 2.3. Entradas de la Documentación
+## Entradas de la Documentación
 
 Starlight se encarga de crear una content collection llamada "docs" en la que debemos ir agregando cada una de las entradas, las cuales deben estar en formato `.md` o `.mdx`. Nosotros podemos especificar una multitud de campos en el `frontmatter` de cada uno de ellos pero los más importantes son:
 
@@ -718,13 +718,13 @@ Starlight se encarga de crear una content collection llamada "docs" en la que de
 - sidebar: controla cómo la entrada se muestra en la [barra lateral](#barra-lateral-o-sidebar) cuando esta es autogenerada ([ver docs](https://starlight.astro.build/reference/frontmatter/#sidebar)).
 
 
-## 2.4. Barra Lateral o Sidebar ([docs](https://starlight.astro.build/guides/sidebar))
+## Barra Lateral o Sidebar ([docs](https://starlight.astro.build/guides/sidebar))
 
 La barra lateral es la que permite navegar por la documentación, por defecto esta sigue la estructura de carpetas del proyecto.
 
 Toda configuración que queramos hacer sobre la barra lateral debe ir dentro de la configuración de starlight en el archivo `astro.config.mj`.
 
-### 2.4.1. Links Internos ([doc](https://starlight.astro.build/guides/sidebar/#internal-links))
+### Links Internos ([doc](https://starlight.astro.build/guides/sidebar/#internal-links))
 
 Esto hace referencia a cuando queremos que algo que se encuentra en una subcarpeta de la documentación aparezca en primer nivel de la barra de navegación.
 
@@ -763,7 +763,7 @@ starlight({
 });
 ```
 
-### 2.4.2. Otros Links ([doc](https://starlight.astro.build/guides/sidebar/#other-links))
+### Otros Links ([doc](https://starlight.astro.build/guides/sidebar/#other-links))
 
 Si queremos agregar enlaces a página de la carpeta `/pages` o a sitios externos podemos hacer lo siguiente:
 
@@ -778,7 +778,7 @@ starlight({
 })
 ```
 
-### 2.4.3. Grupos
+### Grupos
 
 Para hacer una estructura de árbol agrupando entradas que se encuentran en el mismo directorio podemos apoyarnos en la propiedad `items`
 
@@ -829,7 +829,7 @@ starlight({
 })
 ```
 
-### 2.4.4. Badges
+### Badges
 
 Tanto los Enlaces como los grupos pueden incluir una propiedad `badge` para decorar el item pasandole un string o un objeto con `text`, `variant` y/o `class`
 
@@ -857,7 +857,7 @@ starlight({
 });
 ```
 
-## 2.5. Componentes ([docs](https://starlight.astro.build/components/using-components/))
+## Componentes ([docs](https://starlight.astro.build/components/using-components/))
 
 Starlight otorga una variedad de componentes que podemos utilizar para que nuestra documentación se vea mejor. Para usarlos es tan simple como que los importemos de `@astrojs/starlight/components` como se ve a continuación
 
@@ -867,7 +867,7 @@ import { NombreDelComponente } from '@astrojs/starlight/components'
 
 Veamos algunos de los componentes que considero más interesantes:
 
-### 2.5.1. Card
+### Card
 
 Como su nombre indica es simplemente una tarjeta, en este caso algo minimalista, que nos permite mostrar algo de información acompañada de un icono.
 
@@ -881,7 +881,7 @@ Para usarla la importamos y le pasamos el contenido como hijo y las siguientes p
 </Card>
 ```
 
-### 2.5.2. CardGrid
+### CardGrid
 
 En caso de que queramos mostrar las tarjetas en forma de grilla en lugar de una abajo de la otra podemos recurrir al componente `CardGrid` y usarlo para envolver los componentes `Card`
 
@@ -896,7 +896,7 @@ En caso de que queramos mostrar las tarjetas en forma de grilla en lugar de una 
 </CardGrid>
 ```
 
-### 2.5.3. Aside
+### Aside
 
 Sirve para dar información adicional al lector, ya sea un matiz, algo a tener en cuenta u otra cosa. Acepta 2 propiedades ambas opcionales
 
@@ -909,7 +909,7 @@ Sirve para dar información adicional al lector, ya sea un matiz, algo a tener e
 </Aside>
 ```
 
-### 2.5.4. LinkButton
+### LinkButton
 
 Crea un botón que redirige a una página. Acepta las siguientes propiedades:
 
@@ -925,7 +925,7 @@ Crea un botón que redirige a una página. Acepta las siguientes propiedades:
 </LinkButton>
 ```
 
-### 2.5.5. Tabs y TabItem
+### Tabs y TabItem
 
 Sirve para agrupar información que es equivalente en pestañas individuales para que el usuario vea sólo la que le interesa. TabItems admite dos propiedades, `label`, texto que describe la pestaña; y `icon`, para un icono de Starlight.
 
@@ -993,7 +993,7 @@ Iniciar server local del proyecto:
 </Tabs>
 ```
 
-### 2.5.6. FileTree
+### FileTree
 
 > [!WARNING]
 > IN PROGRESS
