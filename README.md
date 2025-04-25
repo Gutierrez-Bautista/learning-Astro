@@ -818,3 +818,53 @@ starlight({
   ],
 });
 ```
+
+### Componentes ([docs](https://starlight.astro.build/components/using-components/))
+
+Starlight otorga una variedad de componentes que podemos utilizar para que nuestra documentación se vea mejor. Para usarlos es tan simple como que los importemos de `@astrojs/starlight/components` como se ve a continuación
+
+```js
+import { NombreDelComponente } from '@astrojs/starlight/components'
+```
+
+Veamos algunos de los componentes que considero más interesantes:
+
+#### Card
+
+Como su nombre indica es simplemente una tarjeta, en este caso algo minimalista, que nos permite mostrar algo de información acompañada de un icono.
+
+Para usarla la importamos y le pasamos el contenido como hijo y una propiedad `title` (obligatoria) y otra `icon` (opcional)
+
+```html
+<Card title='Luna' icon='moon'>
+  Su brillo plateado ilumina nuestras noches y sus fases cambiantes han marcado calendarios y mitologías. La influencia gravitatoria de la Luna también es responsable de las mareas en nuestro planeta.
+</Card>
+```
+
+#### CardGrid
+
+En caso de que queramos mostrar las tarjetas en forma de grilla en lugar de una abajo de la otra podemos recurrir al componente `CardGrid` y usarlo para envolver los componentes `Card`
+
+```html
+<CardGrid>
+  <Card title='Fobos' icon='moon'>
+    La luna más grande y cercana a Marte, orbita tan rápido que sale y se pone dos veces al día marciano
+  </Card>
+  <Card title='Deimos' icon='moon'>
+    La luna más pequeña y alejada, tiene una órbita más regular y tarda un poco más que el día marciano en completarla
+  </Card>
+</CardGrid>
+```
+
+#### Aside
+
+Sirve para dar información adicional al lector, ya sea un matiz, algo a tener en cuenta u otra cosa. Acepta 2 propiedades ambas opcionales
+
+- type: `'note' | 'tip' | 'caution' | 'danger'` definen el color e icono que se muestra. Por defecto `'note'`
+- title: texto que se muestra como título del Aside
+
+```html
+<Aside title='Curiosidad' type='tip'>
+  Un día en Marte es solo unos 37 minutos más largo que un día en la Tierra.
+</Aside>
+```
