@@ -833,7 +833,9 @@ Veamos algunos de los componentes que considero más interesantes:
 
 Como su nombre indica es simplemente una tarjeta, en este caso algo minimalista, que nos permite mostrar algo de información acompañada de un icono.
 
-Para usarla la importamos y le pasamos el contenido como hijo y una propiedad `title` (obligatoria) y otra `icon` (opcional)
+Para usarla la importamos y le pasamos el contenido como hijo y las siguientes propiedades:
+- title (obligatoria): Texto que actua como título de la card
+- icon: un ícono de starlight que se mostrará a la izquierda del título (ver [lista de iconos](https://starlight.astro.build/reference/icons/#all-icons))
 
 ```html
 <Card title='Luna' icon='moon'>
@@ -868,3 +870,92 @@ Sirve para dar información adicional al lector, ya sea un matiz, algo a tener e
   Un día en Marte es solo unos 37 minutos más largo que un día en la Tierra.
 </Aside>
 ```
+
+#### LinkButton
+
+Crea un botón que redirige a una página. Acepta las siguientes propiedades:
+
+- href (obligatoria): dirección a la que dirige el botón.
+- variant: `'primary' | 'secondary' | 'minimal'` define la apariencia del botón, `'primary'` para un botón del color de acento, `'minimal'` par un estilado mínimo y `'scondary'` para un punto medio.
+- icon: Un icono de starlight.
+- iconPlacement: `'start' | 'end'` define en dónde se posiciona el icono, `'end'` por defecto.
+
+```html
+<LinkButton href="/un-url/" icon='right-arrow'>Botón principal</LinkButton>
+<LinkButton href="/otra/url/" variant="secondary">
+  Botón secundario
+</LinkButton>
+```
+
+#### Tabs y TabItem
+
+Sirve para agrupar información que es equivalente en pestañas individuales para que el usuario vea sólo la que le interesa. TabItems admite dos propiedades, `label`, texto que describe la pestaña; y `icon`, para un icono de Starlight.
+
+```mdx
+<Tabs>
+  <TabItem label="npm" icon='npm'>
+    ```sh
+    npm create astro@latest -- --template starlight
+    ```
+  </TabItem>
+  <TabItem label="pnpm" icon='pnpm'>
+    ```sh
+    pnpm create astro --template starlight
+    ```
+  </TabItem>
+  <TabItem label="yarn" icon='seti:yarn'>
+    ```sh
+    yarn create astro --template starlight
+    ```
+  </TabItem>
+</Tabs>
+```
+
+Si queremos que dos grupos de pestañas estén sincronizados podemos utilizar la propiedad `syncKey` de `Tabs`
+
+```mdx
+Crear proyecto de Starlight:
+
+<Tabs>
+  <TabItem label="npm" icon='npm'>
+    ```sh
+    npm create astro@latest -- --template starlight
+    ```
+  </TabItem>
+  <TabItem label="pnpm" icon='pnpm'>
+    ```sh
+    pnpm create astro --template starlight
+    ```
+  </TabItem>
+  <TabItem label="yarn" icon='seti:yarn'>
+    ```sh
+    yarn create astro --template starlight
+    ```
+  </TabItem>
+</Tabs>
+
+Iniciar server local del proyecto:
+
+<Tabs syncKey='cli-commands'>
+  <TabItem label='npm' icon='npm'>
+    ```sh
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label='pnpm' icon='pnpm'>
+    ```sh
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label='yarn' icon='seti:yarn'>
+    ```sh
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+```
+
+#### FileTree
+
+> [!WARNING]
+> IN PROGRESS
