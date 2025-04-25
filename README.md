@@ -660,7 +660,7 @@ type LogoConfig = { alt?: string; replacesTitle?: boolean } & (
   | { light: string; dark: string }
 )
 ```
-- TableOfContent: `false | { minHeadingLevel?: number; maxHeadingLevel?: number; }`, Configura la tabla de contenidos que se muestra a la derecha de cada página. Por defecto sólo los encabezados <h2> y <h3> se incluyen.
+- TableOfContent: `false | { minHeadingLevel?: number; maxHeadingLevel?: number; }`, Configura la tabla de contenidos que se muestra a la derecha de cada página. Por defecto sólo los encabezados <\h2> y <\h3> se incluyen.
 - sidebar: Configura la barra lateral de navegación ver [Barra Lateral o Sidebar](#barra-lateral-o-sidebar-docs).
 - social: Cuentas de redes sociales para este sitio. Se mostrarán como iconos en el encabezado de sitio. `Array<{ label: string; icon: StarlightIcon; href: string }>` (ver [iconos de starlight](https://starlight.astro.build/es/reference/icons/))
 - favicon: path al favicon por defecto alojado en el directorio `public/`.
