@@ -37,6 +37,7 @@
     - [LinkButton](#linkbutton)
     - [Tabs y TabItem](#tabs-y-tabitem)
     - [FileTree](#filetree)
+  - [Estilos y CSS (docs)](#estilos-y-css-docs)
 
 ## Introducción
 
@@ -995,5 +996,25 @@ Iniciar server local del proyecto:
 
 ### FileTree
 
+Permite mostrar un árbol de archivos, lo que nos da la opción de mostrar una estructura de carpetas y archivos.
+
+Podemos resaltar un item encerrandolo con dos asteriscos por cada lado `**item**` y para agregar un comentario simplemente lo separamos con un espacio `item comentario`
+
+```mdx
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+- src
+  - components
+    - **Header.astro** Un archivo **importante**
+    - Title.astro
+    - ...
+
+</FileTree>
+```
+
+## Estilos y CSS ([docs](https://starlight.astro.build/guides/css-and-tailwind/))
+
 > [!WARNING]
-> IN PROGRESS
+> > IN PROGESS
